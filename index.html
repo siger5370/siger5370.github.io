@@ -3,10 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的 GitHub Pages 网站</title>
+    <title>个人博客 | 知识探索者</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --text-color: #34495e;
+            --light-bg: #f8f9fa;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        /* 主页内容 */
+        .hero {
+            padding: 120px 2rem 60px;
+            text-align: center;
+            background: linear-gradient(45deg, #f6f6f6, #ffffff);
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        /* 文章列表 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 2rem;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .article-date {
+            color: #95a5a6;
+            font-size: 0.9em;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            height: fit-content;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--light-bg);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.3rem;
+            font-size: 0.9em;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        /* 页脚 */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            margin: 0 1rem;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+    </style>
 </head>
 <body>
-    <h1>欢迎来到我的网站！</h1>
-    <p>这是一个简单的 GitHub Pages 示例。</p>
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="#home">首页</a>
+            <a href="#articles">文章</a>
+            <a href="#about">关于</a>
+            <a href="#contact">联系</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <img src="https://via.placeholder.com/150" alt="头像" class="avatar">
+        <h1>知识探索者</h1>
+        <p>技术 · 设计 · 创新思维</p>
+    </section>
+
+    <div class="container">
+        <main>
+            <article class="article-card animated">
+                <h2>如何构建现代Web应用</h2>
+                <p class="article-date">2023年10月15日 · 技术文章</p>
+                <p>探索现代前端开发的趋势与技术栈选择，从框架选型到性能优化...</p>
+                <div class="tags">
+                    <span class="tag">前端开发</span>
+                    <span class="tag">JavaScript</span>
+                </div>
+            </article>
+
+            <article class="article-card animated">
+                <h2>用户体验设计原则</h2>
+                <p class="article-date">2023年10月12日 · 设计思考</p>
+                <p>深入解析用户中心设计的核心要素与实践方法，提升产品体验...</p>
+                <div class="tags">
+                    <span class="tag">UI/UX</span>
+                    <span class="tag">设计思维</span>
+                </div>
+            </article>
+        </main>
+
+        <aside class="sidebar animated">
+            <h3>关于作者</h3>
+            <p>全栈开发者，热爱技术创新与设计美学，持续探索数字世界的可能性。</p>
+            <h3>分类</h3>
+            <div class="tags">
+                <span class="tag">技术文章</span>
+                <span class="tag">生活随笔</span>
+                <span class="tag">设计思考</span>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p>© 2023 知识探索者 保留所有权利</p>
+    </footer>
 </body>
 </html>
