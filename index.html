@@ -18,7 +18,6 @@
             min-height: 100vh;
         }
 
-        /* 修改后的全宽导航栏 */
         .navbar {
             width: 100%;
             background: #3498db;
@@ -49,14 +48,121 @@
             text-decoration: underline;
         }
 
-        .container {
+        /* 新增主容器样式 */
+        .main-container {
+            display: flex;
+            gap: 2rem;
             width: 90%;
             max-width: 1200px;
-            padding: 2rem;
             margin: 0 auto;
-            flex: 1;
         }
 
+        .container {
+            flex: 1;
+            padding: 2rem 0;
+            margin: 0;
+        }
+
+        /* 侧边栏样式 */
+        .aside {
+            width: 300px;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .aside h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #3498db;
+        }
+
+        #recent-posts {
+            list-style: none;
+            padding: 0;
+        }
+
+        #recent-posts li {
+            margin: 0.8rem 0;
+        }
+
+        #recent-posts a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        #tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        #tag-cloud span {
+            background: #f0f0f0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+
+        #tag-cloud span:hover {
+            transform: translateY(-2px);
+        }
+
+        /* 暗色模式调整 */
+        .dark-mode {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+
+        .dark-mode .navbar {
+            background: #1a2634;
+        }
+
+        .dark-mode .article-card {
+            background: #34495e;
+            box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+        }
+
+        .dark-mode .aside {
+            background: #34495e;
+            box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+        }
+
+        .dark-mode .aside h2 {
+            color: #ecf0f1;
+            border-color: #f39c12;
+        }
+
+        .dark-mode #recent-posts a {
+            color: #f39c12;
+        }
+
+        .dark-mode #tag-cloud span {
+            background: #2c3e50;
+            color: #ecf0f1;
+        }
+
+        .toggle-theme {
+            display: block;
+            margin: 0 auto 2rem;
+            padding: 0.6rem 1.2rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-theme:hover {
+            background: #2980b9;
+        }
+
+        /* 原有其他样式保持不变 */
         h1 {
             text-align: center;
             color: #2c3e50;
@@ -103,62 +209,15 @@
             flex-direction: column;
         }
 
-        .article-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .article-card a {
-            text-decoration: none;
-            color: #3498db;
-            font-size: 1.3rem;
-            font-weight: bold;
-            transition: color 0.2s ease;
-        }
-
-        .article-card a:hover {
-            color: #2980b9;
-        }
-
-        .article-meta {
-            font-size: 0.9rem;
-            color: #777;
-            margin-top: 0.5rem;
-        }
-
-        .toggle-theme {
-            display: block;
-            margin: 0 auto 2rem;
-            padding: 0.6rem 1.2rem;
-            background: #3498db;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .toggle-theme:hover {
-            background: #2980b9;
-        }
-
-        .dark-mode {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-        }
-
-        .dark-mode .navbar {
-            background: #1a2634;
-        }
-
-        .dark-mode .article-card {
-            background: #34495e;
-            box-shadow: 0 2px 8px rgba(255,255,255,0.1);
-        }
-
-        .dark-mode .toggle-theme {
-            background: #f39c12;
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .aside {
+                width: 100%;
+                margin-top: 2rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -182,14 +241,23 @@
         </div>
     </nav>
 
-    <div class="container">
-        <h1>📚 我的博客</h1>
-        <p class="subtitle">欢迎来到我的个人博客，这里记录了我的文章和想法。</p>
-        
-        <button class="toggle-theme" onclick="toggleTheme()">🌙 切换夜间模式</button>
-        <input type="text" id="search-box" placeholder="🔍 搜索文章...">
-        
-        <ul id="article-list"></ul>
+    <div class="main-container">
+        <div class="container">
+            <h1>📚 我的博客</h1>
+            <p class="subtitle">欢迎来到我的个人博客，这里记录了我的文章和想法。</p>
+            
+            <button class="toggle-theme" onclick="toggleTheme()">🌙 切换夜间模式</button>
+            <input type="text" id="search-box" placeholder="🔍 搜索文章...">
+            
+            <ul id="article-list"></ul>
+        </div>
+
+        <aside class="aside">
+            <h2>📌 最新文章</h2>
+            <ul id="recent-posts"></ul>
+            <h2 style="margin-top: 2rem;">🏷️ 标签云</h2>
+            <div id="tag-cloud"></div>
+        </aside>
     </div>
     
     <script>
@@ -203,6 +271,7 @@
                 const list = document.getElementById('article-list');
                 const searchBox = document.getElementById('search-box');
 
+                // 渲染主文章列表
                 function renderPosts(filter = "") {
                     list.innerHTML = "";
                     posts.filter(post => post.title.includes(filter)).forEach(post => {
@@ -220,6 +289,24 @@
 
                 searchBox.addEventListener('input', (e) => {
                     renderPosts(e.target.value);
+                });
+
+                // 填充侧边栏内容
+                const recentPosts = posts.slice(0, 5);
+                const recentList = document.getElementById('recent-posts');
+                recentPosts.forEach(post => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="article.html?post=${post.file}">${post.title}</a>`;
+                    recentList.appendChild(li);
+                });
+
+                // 生成标签云（示例数据）
+                const tags = ['技术', '生活', '编程', '设计', '随笔', '学习', '开发'];
+                const tagCloud = document.getElementById('tag-cloud');
+                tags.forEach(tag => {
+                    const span = document.createElement('span');
+                    span.textContent = tag;
+                    tagCloud.appendChild(span);
                 });
             });
     </script>
