@@ -4,10 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的博客</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 新增CSS样式 */
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #3498db;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #article-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        #article-list li {
+            background: white;
+            border-radius: 10px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #article-list li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        #article-list a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: 500;
+            font-size: 1.1rem;
+            display: block;
+            transition: color 0.2s ease;
+        }
+
+        #article-list a:hover {
+            color: #2980b9;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* 添加加载动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #article-list li {
+            animation: fadeIn 0.4s ease forwards;
+            opacity: 0;
+        }
+
+        #article-list li:nth-child(1) { animation-delay: 0.1s; }
+        #article-list li:nth-child(2) { animation-delay: 0.2s; }
+        #article-list li:nth-child(3) { animation-delay: 0.3s; }
+    </style>
 </head>
 <body>
-    <h1>我的博客</h1>
+    <h1>📚 我的博客</h1>
     <ul id="article-list"></ul>
 
     <script>
