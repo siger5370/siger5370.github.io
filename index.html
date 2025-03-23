@@ -16,6 +16,27 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
+        .navbar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: #3498db;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
         h1 {
             text-align: center;
             color: #2c3e50;
@@ -119,10 +140,16 @@
     </style>
 </head>
 <body>
-    <h1>我的博客</h1>
+    <nav class="navbar">
+        <a href="#history">历史文章</a>
+        <a href="#search">搜索</a>
+        <a href="#contact">联系我</a>
+    </nav>
+
+    <h1>📚 我的博客</h1>
     <p class="subtitle">欢迎来到我的个人博客，这里记录了我的文章和想法。</p>
     
- 
+    <button class="toggle-theme" onclick="toggleTheme()">🌙 切换夜间模式</button>
     <input type="text" id="search-box" placeholder="🔍 搜索文章...">
     
     <ul id="article-list"></ul>
