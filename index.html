@@ -6,10 +6,10 @@
     <title>技术博客 | 探索数字世界</title>
     <style>
         :root {
-            --primary-color: #2A5C82;
+            --primary-color: rgba(255, 255, 255, 0.9);
             --accent-color: #39A2AE;
-            --text-color: #333333;
-            --bg-color: #F5F8FA;
+            --text-color: #ffffff;
+            --overlay-color: rgba(0, 0, 0, 0.6);
         }
 
         * {
@@ -22,17 +22,44 @@
             font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
             line-height: 1.6;
             color: var(--text-color);
-            background-color: var(--bg-color);
+        }
+
+        /* 视频背景容器 */
+        #video-container {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+
+        #bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+        }
+
+        /* 背景遮罩层 */
+        .overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-color);
+            z-index: 0;
         }
 
         /* 导航栏设计 */
         .navbar {
-            background: var(--primary-color);
-            padding: 1.2rem 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            position: relative;
+            background: transparent;
+            padding: 1.5rem 0;
+            z-index: 2;
         }
 
         .nav-container {
@@ -50,12 +77,13 @@
         }
 
         .nav-link {
-            color: white;
+            color: var(--primary-color);
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
             position: relative;
             padding: 0.5rem 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .nav-link::after {
@@ -75,18 +103,22 @@
 
         /* 主体内容 */
         .main-content {
+            position: relative;
             max-width: 800px;
-            margin: 4rem auto;
+            margin: 8rem auto;
             padding: 0 2rem;
+            z-index: 1;
         }
 
         /* 个人简介卡片 */
         .profile-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 16px;
             padding: 3rem;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
             text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .avatar {
@@ -102,6 +134,7 @@
             font-size: 2.2rem;
             color: var(--primary-color);
             margin-bottom: 0.8rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .title {
@@ -113,7 +146,7 @@
         .bio {
             font-size: 1.1rem;
             line-height: 1.8;
-            color: #555;
+            color: rgba(255,255,255,0.9);
             max-width: 600px;
             margin: 0 auto 2rem;
         }
@@ -149,7 +182,7 @@
             }
 
             .main-content {
-                margin: 2rem auto;
+                margin: 4rem auto;
             }
 
             .profile-card {
@@ -159,20 +192,36 @@
             .name {
                 font-size: 1.8rem;
             }
+
+            #bg-video {
+                display: none;
+            }
+
+            body {
+                background: url('fallback-image.jpg') center/cover;
+            }
         }
     </style>
     <!-- Font Awesome图标 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <video autoplay muted loop id="background-video">
-    <source src="video.mp4" type="video/mp4">
+    <!-- 视频背景 -->
+    <div id="video-container">
+        <video autoplay muted loop id="bg-video">
+            <source src="background.mp4" type="video/mp4">
+            <source src="background.webm" type="video/webm">
+            您的浏览器不支持视频背景
+        </video>
+    </div>
     
-</video>
+    <!-- 遮罩层 -->
+    <div class="overlay"></div>
+
     <!-- 导航栏 -->
     <nav class="navbar">
         <div class="nav-container">
-            <h1 style="color: white; font-weight: 600;">TechExplorer</h1>
+            <h1 style="color: var(--primary-color); font-weight: 600;">TechExplorer</h1>
             <div class="nav-links">
                 <a href="index1.html" class="nav-link">📚 历史文章</a>
                 <a href="/contact.html" class="nav-link">📩 联系我</a>
