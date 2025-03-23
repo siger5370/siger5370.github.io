@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技术博客 | 探索数字世界</title>
+    <style>
+        :root {
+            --primary-color: #2A5C82;
+            --accent-color: #39A2AE;
+            --text-color: #333333;
+            --bg-color: #F5F8FA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        /* 导航栏设计 */
+        .navbar {
+            background: var(--primary-color);
+            padding: 1.2rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* 主体内容 */
+        .main-content {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        /* 个人简介卡片 */
+        .profile-card {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            border: 4px solid var(--accent-color);
+            object-fit: cover;
+        }
+
+        .name {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .title {
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .bio {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* 社交媒体链接 */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            color: var(--accent-color);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .main-content {
+                margin: 2rem auto;
+            }
+
+            .profile-card {
+                padding: 2rem;
+            }
+
+            .name {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+    <!-- Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 style="color: white; font-weight: 600;">TechExplorer</h1>
+            <div class="nav-links">
+                <a href="/history.html" class="nav-link">📚 历史文章</a>
+                <a href="/contact.html" class="nav-link">📩 联系我</a>
+                <a href="/ai-security.html" class="nav-link">🛡️ 网络安全AI</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 个人简介 -->
+    <main class="main-content">
+        <div class="profile-card">
+            <img src="avatar.jpg" alt="头像" class="avatar">
+            <h2 class="name">张三</h2>
+            <p class="title">全栈开发者 | 网络安全研究员</p>
+            <p class="bio">
+                热衷于探索数字世界的无限可能，拥有5年全栈开发经验，专注网络安全与人工智能交叉领域。
+                通过这个博客分享技术洞见、开发经验和网络安全实践。相信技术的力量应该用于创造更安全的数字环境。
+            </p>
+            <div class="social-links">
+                <a href="https://github.com" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://twitter.com" target="_blank" class="social-link">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
