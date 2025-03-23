@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的博客</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>我的博客</h1>
+    <ul id="article-list"></ul>
+
+    <script>
+        fetch('posts.json')
+            .then(response => response.json())
+            .then(posts => {
+                const list = document.getElementById('article-list');
+                posts.forEach(post => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="article.html?post=${post.file}">${post.title}</a>`;
+                    list.appendChild(li);
+                });
+            });
+    </script>
+</body>
+</html>
