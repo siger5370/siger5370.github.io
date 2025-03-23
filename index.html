@@ -5,172 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的博客</title>
     <style>
-        /* 基础样式 */
-        :root {
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --sidebar-width: 240px;
-        }
-
+        /* 新增CSS样式 */
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            margin: 0;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
             background-color: #f8f9fa;
             color: #333;
-            min-height: 100vh;
-            display: grid;
-            grid-template-rows: auto 1fr;
         }
 
-        /* 标题栏 */
-        header {
-            background: var(--primary-color);
-            color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .site-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            text-decoration: none;
-            color: white;
-        }
-
-        /* 主体布局 */
-        .main-container {
-            display: grid;
-            grid-template-columns: var(--sidebar-width) 1fr;
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        /* 侧边栏 */
-        aside.sidebar {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            height: fit-content;
-            position: sticky;
-            top: 100px;
-        }
-
-        .sidebar-section {
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5rem;
             margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #3498db;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
-        .sidebar h3 {
-            color: var(--primary-color);
-            margin-top: 0;
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 0.5rem;
-        }
-
-        /* 文章列表 */
         #article-list {
             list-style: none;
             padding: 0;
             margin: 0;
-            display: grid;
-            gap: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
         #article-list li {
             background: white;
             border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: all 0.2s ease;
+            padding: 1.25rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .main-container {
-                grid-template-columns: 1fr;
-                padding: 0 1rem;
-            }
+        #article-list li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
 
-            aside.sidebar {
-                position: static;
-                margin-bottom: 2rem;
+        #article-list a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: 500;
+            font-size: 1.1rem;
+            display: block;
+            transition: color 0.2s ease;
+        }
+
+        #article-list a:hover {
+            color: #2980b9;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
             }
         }
+
+        /* 添加加载动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #article-list li {
+            animation: fadeIn 0.4s ease forwards;
+            opacity: 0;
+        }
+
+        #article-list li:nth-child(1) { animation-delay: 0.1s; }
+        #article-list li:nth-child(2) { animation-delay: 0.2s; }
+        #article-list li:nth-child(3) { animation-delay: 0.3s; }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <a href="#" class="site-title">📖 知识库</a>
-            <nav>
-                <a href="#" style="color: white; margin-left: 1.5rem;">首页</a>
-                <a href="#" style="color: white; margin-left: 1.5rem;">分类</a>
-                <a href="#" style="color: white; margin-left: 1.5rem;">关于</a>
-            </nav>
-        </div>
-    </header>
-
-    <div class="main-container">
-        <aside class="sidebar">
-            <div class="sidebar-section">
-                <h3>📌 最新文章</h3>
-                <div id="recent-posts"></div>
-            </div>
-            <div class="sidebar-section">
-                <h3>🏷️ 文章分类</h3>
-                <ul style="list-style: none; padding-left: 0;">
-                    <li><a href="#" style="color: var(--accent-color);">技术笔记</a></li>
-                    <li><a href="#" style="color: var(--accent-color);">生活随笔</a></li>
-                    <li><a href="#" style="color: var(--accent-color);">项目案例</a></li>
-                </ul>
-            </div>
-        </aside>
-
-        <main>
-            <h1 style="margin-top: 0;">📚 最新文章</h1>
-            <ul id="article-list"></ul>
-        </main>
-    </div>
+    <h1>📚 我的博客</h1>
+    <ul id="article-list"></ul>
 
     <script>
         fetch('posts.json')
             .then(response => response.json())
             .then(posts => {
                 const list = document.getElementById('article-list');
-                const recentPosts = document.getElementById('recent-posts');
-                
-                // 显示最新5篇文章在侧边栏
-                posts.slice(0, 5).forEach(post => {
-                    const p = document.createElement('p');
-                    p.innerHTML = `<a href="article.html?post=${post.file}" style="color: var(--accent-color);">${post.title}</a>`;
-                    recentPosts.appendChild(p);
-                });
-
-                // 显示全部文章
                 posts.forEach(post => {
                     const li = document.createElement('li');
-                    li.innerHTML = `
-                        <a href="article.html?post=${post.file}" 
-                           style="text-decoration: none; 
-                                  color: var(--primary-color);
-                                  font-weight: 500;">
-                            ${post.title}
-                        </a>
-                        <p style="color: #666; margin-top: 0.5rem;">${post.date || ''}</p>
-                    `;
+                    li.innerHTML = `<a href="article.html?post=${post.file}">${post.title}</a>`;
                     list.appendChild(li);
                 });
             });
