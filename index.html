@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的博客</title>
     <style>
-        /* 新增CSS样式 */
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             line-height: 1.6;
@@ -14,16 +13,34 @@
             padding: 2rem;
             background-color: #f8f9fa;
             color: #333;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         h1 {
             text-align: center;
             color: #2c3e50;
             font-size: 2.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             padding-bottom: 1rem;
             border-bottom: 3px solid #3498db;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        #search-box {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
         }
 
         #article-list {
@@ -35,71 +52,109 @@
             gap: 1rem;
         }
 
-        #article-list li {
+        .article-card {
             background: white;
             border-radius: 10px;
-            padding: 1.25rem;
+            padding: 1.5rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
         }
 
-        #article-list li:hover {
+        .article-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        #article-list a {
+        .article-card a {
             text-decoration: none;
             color: #3498db;
-            font-weight: 500;
-            font-size: 1.1rem;
-            display: block;
+            font-size: 1.3rem;
+            font-weight: bold;
             transition: color 0.2s ease;
         }
 
-        #article-list a:hover {
+        .article-card a:hover {
             color: #2980b9;
         }
 
-        @media (max-width: 600px) {
-            body {
-                padding: 1rem;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
+        .article-meta {
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 0.5rem;
         }
 
-        /* 添加加载动画 */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .toggle-theme {
+            display: block;
+            margin: 0 auto 2rem;
+            padding: 0.6rem 1.2rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
         }
 
-        #article-list li {
-            animation: fadeIn 0.4s ease forwards;
-            opacity: 0;
+        .toggle-theme:hover {
+            background: #2980b9;
         }
 
-        #article-list li:nth-child(1) { animation-delay: 0.1s; }
-        #article-list li:nth-child(2) { animation-delay: 0.2s; }
-        #article-list li:nth-child(3) { animation-delay: 0.3s; }
+        .dark-mode {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+
+        .dark-mode .article-card {
+            background: #34495e;
+            box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+        }
+
+        .dark-mode .toggle-theme {
+            background: #f39c12;
+        }
+
     </style>
 </head>
 <body>
     <h1>📚 我的博客</h1>
+    <p class="subtitle">欢迎来到我的个人博客，这里记录了我的文章和想法。</p>
+    
+    <button class="toggle-theme" onclick="toggleTheme()">🌙 切换夜间模式</button>
+    <input type="text" id="search-box" placeholder="🔍 搜索文章...">
+    
     <ul id="article-list"></ul>
-
+    
     <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+
         fetch('posts.json')
             .then(response => response.json())
             .then(posts => {
                 const list = document.getElementById('article-list');
-                posts.forEach(post => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<a href="article.html?post=${post.file}">${post.title}</a>`;
-                    list.appendChild(li);
+                const searchBox = document.getElementById('search-box');
+
+                function renderPosts(filter = "") {
+                    list.innerHTML = "";
+                    posts.filter(post => post.title.includes(filter)).forEach(post => {
+                        const li = document.createElement('li');
+                        li.className = "article-card";
+                        li.innerHTML = `
+                            <a href="article.html?post=${post.file}">${post.title}</a>
+                            <div class="article-meta">📝 ${post.date || '未知日期'}</div>
+                        `;
+                        list.appendChild(li);
+                    });
+                }
+
+                renderPosts();
+
+                searchBox.addEventListener('input', (e) => {
+                    renderPosts(e.target.value);
                 });
             });
     </script>
