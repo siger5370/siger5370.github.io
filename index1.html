@@ -9,8 +9,8 @@
             font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
             color: #fff;
             display: flex;
+            flex-direction: column;
             min-height: 100vh;
-            overflow-x: hidden;
             position: relative;
         }
 
@@ -111,7 +111,8 @@
 
                     // 点击文章标题跳转到文章页面
                     articleCard.addEventListener('click', () => {
-                        window.location.href = article.file; // 跳转到 Markdown 文件对应的页面
+                        // 跳转到对应的 HTML 页面
+                        window.location.href = article.file;
                     });
 
                     // 将文章卡片添加到页面
