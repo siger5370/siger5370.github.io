@@ -1,313 +1,129 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的博客</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            color: #333;
-            transition: background-color 0.3s, color 0.3s;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>历史文章 | 技术博客</title>
+  <style>
+    :root {
+      --primary-color: rgba(255, 255, 255, 0.9);
+      --accent-color: #39A2AE;
+      --text-color: #ffffff;
+    }
 
-        .navbar {
-            width: 100%;
-            background: #3498db;
-            padding: 1rem 0;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+      color: var(--text-color);
+      min-height: 100vh;
+      padding: 2rem;
+      background: none;
+      overflow-x: hidden;
+    }
 
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: bold;
-            padding: 0.5rem 1rem;
-            transition: opacity 0.3s;
-        }
+    #video-container {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -1;
+    }
 
-        .navbar a:hover {
-            opacity: 0.9;
-            text-decoration: underline;
-        }
+    #bg-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+    }
 
-        /* 新增主容器样式 */
-        .main-container {
-            display: flex;
-            gap: 2rem;
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
 
-        .container {
-            flex: 1;
-            padding: 2rem 0;
-            margin: 0;
-        }
+    .search-box {
+      width: 100%;
+      margin-top: 6.5rem;
+      margin-bottom: 2rem;
+    }
 
-        /* 侧边栏样式 */
-        .aside {
-            width: 300px;
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+    .search-box input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      outline: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--primary-color);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
 
-        .aside h2 {
-            color: #2c3e50;
-            margin-top: 0;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #3498db;
-        }
+    .article-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
+    }
 
-        #recent-posts {
-            list-style: none;
-            padding: 0;
-        }
+    .article-card:hover {
+      background: rgba(57, 162, 174, 0.2);
+      transform: translateY(-5px);
+    }
 
-        #recent-posts li {
-            margin: 0.8rem 0;
-        }
+    .article-title {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
 
-        #recent-posts a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        #tag-cloud {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        #tag-cloud span {
-            background: #f0f0f0;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            transition: transform 0.2s;
-        }
-
-        #tag-cloud span:hover {
-            transform: translateY(-2px);
-        }
-
-        /* 暗色模式调整 */
-        .dark-mode {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-        }
-
-        .dark-mode .navbar {
-            background: #1a2634;
-        }
-
-        .dark-mode .article-card {
-            background: #34495e;
-            box-shadow: 0 2px 8px rgba(255,255,255,0.1);
-        }
-
-        .dark-mode .aside {
-            background: #34495e;
-            box-shadow: 0 2px 8px rgba(255,255,255,0.1);
-        }
-
-        .dark-mode .aside h2 {
-            color: #ecf0f1;
-            border-color: #f39c12;
-        }
-
-        .dark-mode #recent-posts a {
-            color: #f39c12;
-        }
-
-        .dark-mode #tag-cloud span {
-            background: #2c3e50;
-            color: #ecf0f1;
-        }
-
-        .toggle-theme {
-            display: block;
-            margin: 0 auto 2rem;
-            padding: 0.6rem 1.2rem;
-            background: #3498db;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .toggle-theme:hover {
-            background: #2980b9;
-        }
-
-        /* 原有其他样式保持不变 */
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 3px solid #3498db;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .subtitle {
-            text-align: center;
-            font-size: 1.2rem;
-            color: #555;
-            margin-bottom: 2rem;
-        }
-
-        #search-box {
-            display: block;
-            width: 100%;
-            padding: 0.8rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-
-        #article-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .article-card {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        @media (max-width: 1024px) {
-            .main-container {
-                flex-direction: column;
-            }
-            
-            .aside {
-                width: 100%;
-                margin-top: 2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .navbar a {
-                font-size: 1rem;
-                padding: 0.5rem;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+    .article-summary {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.6;
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            
-            <a href="index.html">回到主页</a>
-          
-        </div>
-    </nav>
+  <!-- 视频背景 -->
+  <div id="video-container">
+    <video autoplay muted loop id="bg-video">
+      <source src="background.mp4" type="video/mp4" />
+    </video>
+  </div>
 
-    <div class="main-container">
-        <div class="container">
-          
-            
-      
-            <input type="text" id="search-box" placeholder="🔍 搜索文章...">
-            
-            <ul id="article-list"></ul>
-        </div>
-
-        <aside class="aside">
-            <h2>📌 最新文章</h2>
-            <ul id="recent-posts"></ul>
-            <h2 style="margin-top: 2rem;">🏷️ 标签云</h2>
-            <div id="tag-cloud"></div>
-        </aside>
+  <div class="container">
+    <!-- 搜索框 -->
+    <div class="search-box">
+      <input type="text" id="search" placeholder="🔍 搜索文章关键词..." />
     </div>
-    
-    <script>
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-        }
 
-        fetch('posts.json')
-            .then(response => response.json())
-            .then(posts => {
-                const list = document.getElementById('article-list');
-                const searchBox = document.getElementById('search-box');
+    <!-- 文章列表 -->
+    <div class="article-card">
+      <h2 class="article-title">第一篇文章标题</h2>
+      <p class="article-summary">这是第一篇文章的简要内容，介绍了该文章的核心思想和涉及的技术方向。</p>
+    </div>
 
-                // 渲染主文章列表
-                function renderPosts(filter = "") {
-                    list.innerHTML = "";
-                    posts.filter(post => post.title.includes(filter)).forEach(post => {
-                        const li = document.createElement('li');
-                        li.className = "article-card";
-                        li.innerHTML = `
-                            <a href="article.html?post=${post.file}">${post.title}</a>
-                            <div class="article-meta">📝 ${post.date || '未知日期'}</div>
-                        `;
-                        list.appendChild(li);
-                    });
-                }
+    <div class="article-card">
+      <h2 class="article-title">第二篇文章标题</h2>
+      <p class="article-summary">这是第二篇文章的内容摘要，提供读者对文章的快速了解。</p>
+    </div>
 
-                renderPosts();
-
-                searchBox.addEventListener('input', (e) => {
-                    renderPosts(e.target.value);
-                });
-
-                // 填充侧边栏内容
-                const recentPosts = posts.slice(0, 5);
-                const recentList = document.getElementById('recent-posts');
-                recentPosts.forEach(post => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<a href="article.html?post=${post.file}">${post.title}</a>`;
-                    recentList.appendChild(li);
-                });
-
-                // 生成标签云（示例数据）
-                const tags = ['技术', '生活', '编程', '设计', '随笔', '学习', '开发'];
-                const tagCloud = document.getElementById('tag-cloud');
-                tags.forEach(tag => {
-                    const span = document.createElement('span');
-                    span.textContent = tag;
-                    tagCloud.appendChild(span);
-                });
-            });
-    </script>
+    <!-- 更多文章... -->
+  </div>
 </body>
 </html>
