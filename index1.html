@@ -1,133 +1,88 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>历史文章 | 技术博客</title>
-  <style>
-    :root {
-      --primary-color: rgba(255, 255, 255, 0.9);
-      --accent-color: #39A2AE;
-      --text-color: #ffffff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史文章</title>
+    <style>
+        /* 简单样式调整 */
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        .article-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 2rem;
+        }
 
-    body {
-      font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
-      color: var(--text-color);
-      min-height: 100vh;
-      padding: 2rem;
-      background: none;
-      overflow-x: hidden;
-    }
+        .article-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    #video-container {
-      position: fixed;
-      right: 0;
-      bottom: 0;
-      min-width: 100%;
-      min-height: 100%;
-      z-index: -1;
-    }
+        .article-card:hover {
+            background: rgba(57, 162, 174, 0.3);
+            transform: translateY(-3px);
+        }
 
-    #bg-video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
-    }
+        .article-title {
+            font-size: 1.8rem;
+            color: #fff;
+            font-weight: bold;
+        }
 
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .search-box {
-      width: 100%;
-      margin-top: 6.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      border-radius: 8px;
-      border: none;
-      font-size: 1rem;
-      outline: none;
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--primary-color);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .article-card {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: all 0.3s ease;
-    }
-
-    .article-card:hover {
-      background: rgba(57, 162, 174, 0.2);
-      transform: translateY(-5px);
-    }
-
-    .article-title {
-      font-size: 1.5rem;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-
-    .article-summary {
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.85);
-      line-height: 1.6;
-    }
-  </style>
+        .article-summary {
+            margin-top: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
 </head>
 <body>
-  <!-- 视频背景 -->
-  <div id="video-container">
-    <video autoplay muted loop id="bg-video">
-      <source src="background.mp4" type="video/mp4" />
-    </video>
-  </div>
-
-  <div class="container">
-    <!-- 搜索框 -->
-    <div class="search-box">
-      <input type="text" id="search" placeholder="🔍 搜索文章关键词..." />
+    <div class="article-list" id="article-list">
+        <!-- 文章列表将由JS自动加载 -->
     </div>
 
-    <!-- 文章列表 -->
-<a href="article1.html" style="text-decoration: none; color: inherit;">
-  <div class="article-card">
-    <h2 class="article-title">第一篇文章标题</h2>
-    <p class="article-summary">这是第一篇文章的简要内容，介绍了该文章的核心思想和涉及的技术方向。</p>
-  </div>
-</a>
+    <script>
+        // 加载文章信息
+        fetch('data/articles.json')
+            .then(response => response.json())
+            .then(data => {
+                const articleListContainer = document.getElementById('article-list');
 
+                data.forEach(article => {
+                    const articleCard = document.createElement('div');
+                    articleCard.classList.add('article-card');
 
+                    // 生成标题和摘要
+                    const titleElement = document.createElement('h2');
+                    titleElement.classList.add('article-title');
+                    titleElement.innerText = article.title;
 
-    <div class="article-card">
-      <h2 class="article-title">第二篇文章标题</h2>
-      <p class="article-summary">这是第二篇文章的内容摘要，提供读者对文章的快速了解。</p>
-    </div>
+                    const summaryElement = document.createElement('p');
+                    summaryElement.classList.add('article-summary');
+                    summaryElement.innerText = article.summary;
 
-    <!-- 更多文章... -->
-  </div>
+                    articleCard.appendChild(titleElement);
+                    articleCard.appendChild(summaryElement);
+
+                    // 点击文章标题跳转到文章页面
+                    articleCard.addEventListener('click', () => {
+                        window.location.href = article.file; // 跳转到 Markdown 文件对应的页面
+                    });
+
+                    // 将文章卡片添加到页面
+                    articleListContainer.appendChild(articleCard);
+                });
+            });
+    </script>
 </body>
 </html>
