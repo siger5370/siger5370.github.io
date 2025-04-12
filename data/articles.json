@@ -1,0 +1,12 @@
+[
+  {
+    "title": "第一篇文章标题",
+    "summary": "这是第一篇文章的简要内容，介绍了该文章的核心思想和涉及的技术方向。",
+    "file": "articles/article1.md"
+  },
+  {
+    "title": "第二篇文章标题",
+    "summary": "这是第二篇文章的简介。",
+    "file": "articles/article2.md"
+  }
+]
