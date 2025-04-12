@@ -9,7 +9,6 @@
             --primary-color: rgba(255, 255, 255, 0.9);
             --accent-color: #39A2AE;
             --text-color: #ffffff;
-            --overlay-color: rgba(0, 0, 0, 0.6);
         }
 
         * {
@@ -22,9 +21,12 @@
             font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
             line-height: 1.6;
             color: var(--text-color);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* 视频背景容器 */
+        /* 视频背景 */
         #video-container {
             position: fixed;
             right: 0;
@@ -45,67 +47,13 @@
             height: auto;
         }
 
-        /* 背景遮罩层 */
-   
-
-        /* 修改后的半透明导航栏 */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1rem 0;
-            z-index: 2;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        /* 左侧个人简介 */
+        .left-panel {
+            flex: 1;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-        }
-
-        .nav-link {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.5rem 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-color);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* 修改后的右侧个人简介 */
-        .main-content {
-            position: relative;
-            max-width: 500px;
-            margin: 8rem 2rem 2rem auto;
-            padding: 0 2rem;
-            z-index: 1;
+            justify-content: center;
+            padding: 2rem;
         }
 
         .profile-card {
@@ -116,8 +64,7 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.2);
             text-align: center;
             border: 1px solid rgba(255,255,255,0.1);
-            transform: translateX(20%);
-            transition: all 0.3s ease;
+            max-width: 400px;
         }
 
         .avatar {
@@ -147,10 +94,8 @@
             font-size: 0.95rem;
             line-height: 1.6;
             color: rgba(255,255,255,0.9);
-            margin: 0 auto 1.5rem;
         }
 
-        /* 社交媒体链接 */
         .social-links {
             display: flex;
             justify-content: center;
@@ -165,34 +110,57 @@
             text-decoration: none;
         }
 
-        /* 响应式设计 */
+        /* 右侧栏目框 */
+        .right-panel {
+            width: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: stretch;
+            padding: 2rem 1rem;
+            gap: 1.5rem;
+        }
+
+        .menu-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .menu-box:hover {
+            background: rgba(57, 162, 174, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* 响应式布局 */
         @media (max-width: 768px) {
-            .nav-container {
-                padding: 0 1rem;
+            body {
+                flex-direction: column;
             }
 
-            .nav-links {
-                gap: 1.2rem;
+            .right-panel {
+                flex-direction: row;
+                justify-content: center;
+                gap: 1rem;
+                width: 100%;
+                padding: 1rem;
             }
 
-            .main-content {
-                max-width: 90%;
-                margin: 6rem auto 2rem;
-                padding: 0 1rem;
+            .menu-box {
+                flex: 1;
+                font-size: 0.9rem;
             }
 
-            .profile-card {
-                transform: none;
-                padding: 1.5rem;
-            }
-
-            .avatar {
-                width: 80px;
-                height: 80px;
-            }
-
-            .name {
-                font-size: 1.5rem;
+            .left-panel {
+                padding: 1rem;
             }
 
             #bg-video {
@@ -200,34 +168,18 @@
             }
         }
     </style>
-    <!-- Font Awesome图标 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- 视频背景 -->
+    <!-- 背景视频 -->
     <div id="video-container">
         <video autoplay muted loop id="bg-video">
             <source src="background.mp4" type="video/mp4">
         </video>
     </div>
-    
-    <!-- 遮罩层 -->
 
-
-    <!-- 半透明导航栏 -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <h1 style="color: var(--primary-color); font-weight: 600; font-size: 1.4rem;">TechExplorer</h1>
-            <div class="nav-links">
-                <a href="index1.html" class="nav-link">📚 历史文章</a>
-                <a href="/contact.html" class="nav-link">📩 联系我</a>
-                <a href="/ai-security.html" class="nav-link">🛡️ 网络安全AI</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- 右侧个人简介 -->
-    <main class="main-content">
+    <!-- 左侧个人简介 -->
+    <div class="left-panel">
         <div class="profile-card">
             <img src="avatar.jpg" alt="头像" class="avatar">
             <h2 class="name">张三</h2>
@@ -237,17 +189,19 @@
                 通过博客分享技术洞见与安全实践，用技术创造更安全的数字环境。
             </p>
             <div class="social-links">
-                <a href="https://github.com" target="_blank" class="social-link">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://linkedin.com" target="_blank" class="social-link">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://twitter.com" target="_blank" class="social-link">
-                    <i class="fab fa-twitter"></i>
-                </a>
+                <a href="https://github.com" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com" target="_blank" class="social-link"><i class="fab fa-twitter"></i></a>
             </div>
         </div>
-    </main>
+    </div>
+
+    <!-- 右侧栏目 -->
+    <div class="right-panel">
+        <a href="index1.html" class="menu-box">📚 历史文章</a>
+        <a href="/contact.html" class="menu-box">📩 联系我</a>
+        <a href="/ai-security.html" class="menu-box">🛡️ 网络安全AI</a>
+    </div>
 </body>
 </html>
+
