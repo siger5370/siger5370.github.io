@@ -86,39 +86,42 @@
         <!-- 文章列表将由JS动态加载 -->
     </div>
 
-    <script>
-        // 加载文章信息
-        fetch('data/articles.json')
-            .then(response => response.json())
-            .then(data => {
-                const articleListContainer = document.getElementById('article-list');
+   
+<script>
+    // 加载文章信息
+    fetch('data/articles.json')
+        .then(response => response.json())
+        .then(data => {
+            const articleListContainer = document.getElementById('article-list');
 
-                data.forEach(article => {
-                    const articleCard = document.createElement('div');
-                    articleCard.classList.add('article-card');
+            data.forEach(article => {
+                const articleCard = document.createElement('div');
+                articleCard.classList.add('article-card');
 
-                    // 生成标题和摘要
-                    const titleElement = document.createElement('h2');
-                    titleElement.classList.add('article-title');
-                    titleElement.innerText = article.title;
+                // 生成标题和摘要
+                const titleElement = document.createElement('h2');
+                titleElement.classList.add('article-title');
+                titleElement.innerText = article.title;
 
-                    const summaryElement = document.createElement('p');
-                    summaryElement.classList.add('article-summary');
-                    summaryElement.innerText = article.summary;
+                const summaryElement = document.createElement('p');
+                summaryElement.classList.add('article-summary');
+                summaryElement.innerText = article.summary;
 
-                    articleCard.appendChild(titleElement);
-                    articleCard.appendChild(summaryElement);
+                articleCard.appendChild(titleElement);
+                articleCard.appendChild(summaryElement);
 
-                    // 点击文章标题跳转到文章页面
-                    articleCard.addEventListener('click', () => {
-                        // 跳转到对应的 HTML 页面
-                        window.location.href = article.file;
-                    });
-
-                    // 将文章卡片添加到页面
-                    articleListContainer.appendChild(articleCard);
+                // 点击文章标题跳转到文章页面
+                articleCard.addEventListener('click', () => {
+                    // 确保这里的跳转逻辑正确
+                    window.location.href = article.file;
                 });
+
+                // 将文章卡片添加到页面
+                articleListContainer.appendChild(articleCard);
             });
-    </script>
+        });
+</script>
+
+
 </body>
 </html>
