@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>网络安全初探</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 引入 marked.js 用于解析 Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root {
+      --primary-color: rgba(255, 255, 255, 0.9);
+      --accent-color: #39A2AE;
+      --text-color: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      color: var(--text-color);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* 视频背景 */
+    #video-container {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -1;
+    }
+
+    #bg-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 100%;
+      min-height: 100%;
+    }
+
+    /* 内容区域 */
+    .article-wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 4rem 1rem;
+    }
+
+    .article-container {
+      max-width: 800px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .article-container h1,
+    .article-container h2 {
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
+
+    .article-container p,
+    .article-container li {
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .article-container ul {
+      padding-left: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 视频背景 -->
+  <div id="video-container">
+    <video autoplay muted loop id="bg-video">
+      <source src="background.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- 内容区域 -->
+  <div class="article-wrapper">
+    <div class="article-container" id="markdown-content">
+      加载中...
+    </div>
+  </div>
+
+  <!-- 加载并渲染 Markdown -->
+  <script>
+    fetch("articles/article1.md")
+      .then(res => res.text())
+      .then(md => {
+        document.getElementById("markdown-content").innerHTML = marked.parse(md);
+      });
+  </script>
+</body>
+</html>
